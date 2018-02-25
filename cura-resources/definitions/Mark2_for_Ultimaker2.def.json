@@ -1,25 +1,21 @@
 {
-    "id": "Mark2_for_Ultimaker2",
     "version": 2,
     "name": "Mark2 for Ultimaker2",
     "inherits": "ultimaker2_plus",
     "metadata": {
-        "visible": true,
         "author": "TheUltimakerCommunity",
         "manufacturer": "Foehnsturm",
         "category": "Other",
         "quality_definition": "ultimaker2_plus",
         "weight": 1,
         "file_formats": "text/x-gcode",
-        "icon": "icon_ultimaker.png",
-        "platform": "ultimaker2_platform.obj",
         "platform_texture": "Mark2_for_Ultimaker2_backplate.png",
         "machine_extruder_trains":
         {
             "0": "Mark2_extruder1",
             "1": "Mark2_extruder2"
         },
-        "supported_actions": ["MachineSettingsAction", "UpgradeFirmware"]
+        "supported_actions": ["UpgradeFirmware"]
     },
     "overrides": {
         "machine_name": { "default_value": "Mark2_for_Ultimaker2" },
