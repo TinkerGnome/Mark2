@@ -8,8 +8,12 @@
         "author": "TheUltimakerCommunity",
         "manufacturer": "Foehnsturm",
         "category": "Other",
-        "quality_definition": "ultimaker2_plus",
-        "weight": 1,
+        "has_variants": true,
+        "has_materials": true,
+        "has_machine_materials": false,
+        "has_machine_quality": false,
+        "has_variant_materials": false,
+        "weight": 2,
         "file_formats": "text/x-gcode",
         "icon": "icon_ultimaker.png",
         "platform": "ultimaker2_platform.obj",
@@ -142,7 +146,7 @@
         },
         "machine_start_gcode" : {
             "default_value": "",
-            "value": "\"\"  if machine_gcode_flavor == \"UltiGCode\" else \"G21 ;metric values\\nG90 ;absolute positioning\\nM82 ;set extruder to absolute mode\\nM107 ;start with the fan off\\nM200 D0 T0 ;reset filament diameter\\nM200 D0 T1\\nG28 Z0; home all\\nG28 X0 Y0\\nG0 Z20 F2400 ;move the platform to 20mm\\nG92 E0\\nT1 ; move to the 2th head\\nG0 Z20 F2400\\nG92 E-7.0 ;prime distance\\nG1 E0 F45 ;purge nozzle\\nG1 E-5.1 F1500 ; retract\\nG1 X90 Z0.01 F5000 ; move away from the prime poop\\nG1 X50 F9000\\nG0 Z20 F2400\\nT0 ; move to the first head\\nG0 Z20 F2400\\nG92 E-7.0\\nG1 E0 F45 ;purge nozzle\\nG1 E-5.1 F1500\\nG1 X60 Z0.01 F5000 ; move away from the prime poop\\nG1 X20 F9000\\nM400 ;finish all moves\\nG92 E0\\n;end of startup sequence\\n\""
+            "value": "\"\"  if machine_gcode_flavor == \"UltiGCode\" else \";material_bed_temperature={material_bed_temperature} material_print_temperature={material_print_temperature} material_print_temperature_layer_0={material_print_temperature_layer_0}\\nM190 S{material_bed_temperature_layer_0}\\nM109 T0 S{material_standby_temperature, 0}\\nM109 T1 S{material_print_temperature_layer_0, 1}\\nM104 T0 S{material_print_temperature_layer_0, 0}\\nG21 ;metric values\\nG90 ;absolute positioning\\nM82 ;set extruder to absolute mode\\nM107 ;start with the fan off\\nM200 D0 T0 ;reset filament diameter\\nM200 D0 T1\\nG28 Z0; home all\\nG28 X0 Y0\\nG0 Z20 F2400 ;move the platform to 20mm\\nG92 E0\\nT1 ; move to the 2th head\\nG0 Z20 F2400\\nG92 E-7.0 ;prime distance\\nG1 E0 F45 ;purge nozzle\\nG1 E-5.1 F1500 ; retract\\nG1 X90 Z0.01 F5000 ; move away from the prime poop\\nG1 X50 F9000\\nG0 Z20 F2400\\nT0 ; move to the first head\\nM104 T1 S{material_standby_temperature, 1}\\nG0 Z20 F2400\\nM104 T{initial_extruder_nr} S{material_print_temperature_layer_0, initial_extruder_nr}\\nG92 E-7.0\\nG1 E0 F45 ;purge nozzle\\nG1 E-5.1 F1500\\nG1 X60 Z0.01 F5000 ; move away from the prime poop\\nG1 X20 F9000\\nM400 ;finish all moves\\nG92 E0\\n;end of startup sequence\\n\""
         },
         "machine_end_gcode" : {
             "default_value": "",
@@ -186,12 +190,12 @@
             "value": "jerk_print if magic_spiralize else 20"
         },
         "jerk_layer_0": { "value": "jerk_topbottom" },
-        "jerk_prime_tower": { "value": "math.ceil(jerk_print * 15 / 25)" },
-        "jerk_support": { "value": "math.ceil(jerk_print * 15 / 25)" },
+        "jerk_prime_tower": { "value": "10 if jerk_print < 16 else math.ceil(jerk_print * 15 / 25)" },
+        "jerk_support": { "value": "10 if jerk_print < 16 else math.ceil(jerk_print * 15 / 25)" },
         "jerk_support_interface": { "value": "jerk_topbottom" },
-        "jerk_topbottom": { "value": "math.ceil(jerk_print * 10 / 25)" },
-        "jerk_wall": { "value": "math.ceil(jerk_print * 15 / 25)" },
-        "jerk_wall_0": { "value": "math.ceil(jerk_wall * 6 / 10)" },
+        "jerk_topbottom": { "value": "10 if jerk_print < 25 else math.ceil(jerk_print * 10 / 25)" },
+        "jerk_wall": { "value": "10 if jerk_print < 16 else math.ceil(jerk_print * 15 / 25)" },
+        "jerk_wall_0": { "value": "10 if jerk_wall < 16 else math.ceil(jerk_wall * 6 / 10)" },
         "jerk_travel_layer_0": { "value": "math.ceil(jerk_layer_0 * jerk_travel / jerk_print)" },
         "extruder_prime_pos_abs": { "default_value": false },
         "machine_extruder_start_pos_abs": { "default_value": false },

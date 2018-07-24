@@ -5,7 +5,8 @@
     "inherits": "fdmextruder",
     "metadata": {
         "machine": "Mark2_for_Ultimaker2",
-        "position": "0"
+        "position": "0",
+        "quality_definition": "mark2_extruder1"
     },
 
     "overrides": {
